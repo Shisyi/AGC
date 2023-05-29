@@ -1,8 +1,19 @@
 function [Out,Copmare] = AGC_function(Signal,R,Alpha,Log)
 
-Out            = zeros(1,length(Signal))  ;               
-
-Out(1) = Signal(1);
+Out            = complex(zeros(1,length(Signal)))  ;               
+Copmare        = zeros(1,length(Signal))          ;
+Out(1)         = Signal(1);
+%% Скользящее среднее
+% windowSize = 64;
+% for i = 64: length(Signal) 
+%     value = 0;
+%     for j = 0: windowSize - 1
+%         value    = value + Signal(i-j);
+%     end
+%     Signal_L(i) =  value/windowSize;
+% 
+% end
+% Signal(windowSize:end) = Signal_L(windowSize:end);
 %% Линейный
 if nargin ==3
     
