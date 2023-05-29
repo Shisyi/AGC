@@ -1,7 +1,7 @@
 clc, clear, close all;
 %% Create input signal
 F               = 1e1;
-Fs              = 2e2;
+Fs              = 20e2;
 Frame           = 1  ;
 Amplitudes      = [0.1,1,0.5,1,0.25];
 
@@ -15,24 +15,23 @@ for i = 1:NumFrames
     TimeAxis = [TimeAxis, t + (i-1)*Frame];
 end
 
-fiSampl = fi(SamplesY,1,16,15); %% Перевод в fxp, функцией фи
-err = abs(max(fiSampl - SamplesY)); display(err);
+fiSampl = fi(SamplesY,1,16,14); %% Перевод в fxp, функцией фи
+err = abs(max(fiSampl - SamplesY));
 
 % figure('Name','InputSignal','NumberTitle','off')
 % subplot(2,1,1),plot(TimeAxis,real(SamplesY)),title('Входной сигнал'),grid on,xlim([0 5])
 % subplot(2,1,2),plot(TimeAxis,real(fiSampl)),title('Входной сигнал'),grid on,xlim([0 5])
 
-%% Parameters, Log2Fixed vs Log2Double
+%% Parameters, Fixed vs Double
 R             = 2;
-a             = 0.01;
-Log           = 1;
-[Out,Compare] = AGC_functionFixed(fiSampl,R,a);
-[Out2,Compare2] = AGC_function(SamplesY,R,a,Log);
+a             = 0.001;
+
+[Out,Compare]   = AGC_functionFixed(fiSampl,R,a);
+[Out2,Compare2] = AGC_function(SamplesY,R,a);
 
 Err             = Out2-Out; % Ошибка в каждом отчёте
-% ErrAvg          = abs(sqrt(sum(Err.^2)/length(Err))); % Среднеквадратичная ошибка
 figure('Name','Err','NumberTitle','off')
-plot(TimeAxis,real(Err)),grid on % График ошибки в каждом отчёте
+plot(TimeAxis,abs(Err)./abs(Out2)),grid on % График ошибки в каждом отчёте
 Err = max(abs(Out2-Out)); % Максимальная ошибка
 %%
 figure('Name','Log','NumberTitle','off')

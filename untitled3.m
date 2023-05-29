@@ -1,7 +1,7 @@
-a = fi(1.99,1,16,15);
+a = fi(1.99,1,16,14);
 F = a.fimath;
 
-b = fi(1.99,1,16,15);
+b = fi(1.99,1,16,14);
 M = b.fimath;
 
 F.SumMode = 'SpecifyPrecision';
