@@ -21,7 +21,7 @@ for i = 1: length(Signal)
 
     if i == 1
       
-        MultyCos(i)    = abs(sqrt(real(Signal(i))^2+imag(Signal(i))^2))  ;
+        MultyCos(i)    = (sqrt(real(Signal(i))^2+imag(Signal(i))^2))  ;
         Copmare(i)     = R - MultyCos(i)      ;
         TimeControll(i)= Copmare(i) * Alpha   ;
         Delay(i)       = TimeControll(i)      ;
@@ -29,7 +29,7 @@ for i = 1: length(Signal)
 
     elseif i < length(Signal)
 
-        MultyCos(i)    = abs(sqrt(real(Out(i))^2+imag(Out(i))^2));        
+        MultyCos(i)    = (sqrt(real(Out(i))^2+imag(Out(i))^2));        
         Copmare(i)     = R - MultyCos(i)      ;
         TimeControll(i)= Copmare(i) * Alpha       ;
         Delay(i)       = Delay(i-1) + TimeControll(i);
