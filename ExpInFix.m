@@ -1,7 +1,7 @@
 clc, clear, close all;
 %% Create input signal
 F               = 1e1;
-Fs              = 200e2;
+Fs              = 20e2;
 Frame           = 1  ;
 Amplitudes      = [0.1,1,0.5,1,0.25];
 
