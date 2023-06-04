@@ -6,6 +6,7 @@ Frame           = 1  ;
 Amplitudes      = [0.1,1,0.5,1,0.25];
 R               = 2;
 a               = 0.01;
+alpha           = 0.4;
 NumFrames       = length(Amplitudes);
 SamplesY        = [];
 TimeAxis        = [];
