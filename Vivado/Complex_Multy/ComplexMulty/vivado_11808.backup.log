@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2016.3 (64-bit)
+# SW Build 1682563 on Mon Oct 10 19:07:27 MDT 2016
+# IP Build 1681267 on Mon Oct 10 21:28:31 MDT 2016
+# Start of session at: Mon Apr 17 23:15:53 2023
+# Process ID: 11808
+# Current directory: D:/Vivado/Projects/Verilog/Complex_multiplyer/ComplexMulty
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent8576 D:\Vivado\Projects\Verilog\Complex_multiplyer\ComplexMulty\ComplexMulty.xpr
+# Log file: D:/Vivado/Projects/Verilog/Complex_multiplyer/ComplexMulty/vivado.log
+# Journal file: D:/Vivado/Projects/Verilog/Complex_multiplyer/ComplexMulty\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project D:/Vivado/Projects/Verilog/Complex_multiplyer/ComplexMulty/ComplexMulty.xpr
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-697] Production Evaluation speedfiles are provided in advance of production release and are intended to closely approximate production level performance.
+Once production speedfiles become available, the design will need to be rerun with the production speedfiles.
+WARNING: [filemgmt 56-3] IP Output Repository Path: Could not find the directory 'D:/Vivado/Projects/Verilog/Complex_multiplyer/ComplexMulty/ComplexMulty.cache/ip'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Vivado/Vivado/2016.3/data/ip'.
+open_project: Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1015.980 ; gain = 488.801
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Apr 17 23:16:37 2023...

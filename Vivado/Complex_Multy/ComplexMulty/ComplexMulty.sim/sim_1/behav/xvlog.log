@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Vivado/Projects/Verilog/Complex_multiplyer/25.04.23/rtl/complex_mult.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module complex_mult
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/Vivado/Projects/Verilog/Complex_multiplyer/25.04.23/rtl/tb_complex_mult.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_complex_mult
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/Vivado/Projects/Verilog/Complex_multiplyer/ComplexMulty/ComplexMulty.sim/sim_1/behav/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
