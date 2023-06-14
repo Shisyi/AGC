@@ -1,7 +1,0 @@
-Running: xsim.dir/Multiplayer_behav/xsimk.exe -simmode gui -wdb Multiplayer_behav.wdb -simrunnum 0 -socket 57055
-Design successfully loaded
-Design Loading Memory Usage: 7396 KB (Peak: 7396 KB)
-Design Loading CPU Usage: 15 ms
-Simulation completed
-Simulation Memory Usage: 8152 KB (Peak: 8152 KB)
-Simulation CPU Usage: 31 ms

@@ -1,9 +1,0 @@
-# compile verilog/system verilog design source files
-verilog xil_defaultlib  "../../../../25.04.23/rtl/complex_mult.v"
-sv xil_defaultlib  "../../../../25.04.23/rtl/tb_complex_mult.sv"
-
-# compile glbl module
-verilog xil_defaultlib "glbl.v"
-
-# Do not sort compile order
-nosort
