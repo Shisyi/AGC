@@ -1,7 +1,7 @@
 clc,clear,close all
 %% Parameters
 F               = 1e1;
-Fs              = 100e2;
+Fs              = 200e6;
 Frame           = 1  ;
 Amplitudes      = [0.1,1,0.5,1,0.25];
 R               = 2;
@@ -11,13 +11,11 @@ NumFrames       = length(Amplitudes);
 SamplesY        = [];
 TimeAxis        = [];
 
-BitsIn          = [];
-SigMod          = [];
-NumSym          = 100;
+NumSym          = 1e3;
 NumBitsInSymbol = 4;
 sps             = 4; 
-rolloff         = 0;           
-span            = 100; %???
+rolloff         = 0.3;           
+span            = 32; %???
 %% Sine wave
 for i = 1:NumFrames
     [s,t]    = SignalGFunction(F,Fs,Frame,Amplitudes(i));
@@ -35,15 +33,18 @@ ImagSimpleAGC = timeseries(imag(SamplesY),TimeAxis);
 %% QPSK - signal
 
 SQRRC = rcosdesign(rolloff, span, sps);
+delay = mean(grpdelay(SQRRC));
 
 for i = 1:NumFrames
-    x = randi([0 1],NumSym*NumBitsInSymbol,1);
-    QPSK   = qammod(x,NumBitsInSymbol,'InputType','bit');
+    x = randi([0 3],NumSym,1);
+    QPSK   = qammod(x,NumBitsInSymbol);
     Signal = Amplitudes(i) * upfirdn(QPSK, SQRRC, sps);
+     Signal(1:delay-1)     = [];
+     Signal(end-delay+3:end) = [];
     SamplesY = [SamplesY; Signal];
 end
 SamplesY = SamplesY.';
-TimeAxis = 1/length(SamplesY)*(0:1:length(SamplesY)-1);
+TimeAxis = 40*0.0001/length(SamplesY)*(0:1:length(SamplesY)-1);
 
 FixedRe = timeseries(fi(real(SamplesY),1,16,14),TimeAxis);
 FixedIm = timeseries(fi(imag(SamplesY),1,16,14),TimeAxis);
