@@ -46,45 +46,51 @@ reg
 	signI,
 	signQ;
 
-reg   [W_IN-2:0]
+wire   [W_IN-2:0]
     module_dataI,
     module_dataQ;
 
 reg   [W_IN-1:0]
-	received_sum;
+	received_sum,received_Isignal,received_Qsignal;
 
 reg signed  [W_OUT-1:0]
 	b,d,filter;
 
-    EMA_module #(
-    .AWIDTH  (    W_IN),
-    .BWIDTH  (     W_A),
-    .OUTWIDTH(   W_OUT),
-    .DWIDTH  (    W_IN),
-    .MULT    (    W_OUT),
-) uut (
-    .clk(clk),
-    .b_in(b),
-    .d_in(d),
-    .out(filter)
-);
+	EMA_Module #(
+			.BWIDTH(W_A),
+			.AWIDTH(W_IN),
+			.DWIDTH(W_IN),
+			.MULT(W_OUT),
+			.OUTWIDTH(W_OUT)
+		) inst_EMA_Module (
+			.clk  (clk),
+			.b_in (b),
+			.d_in (d),
+			.out  (filter)
+		);
 
 assign	signI = s_chans_dataI[W_IN-1];
 assign	signQ = s_chans_dataQ[W_IN-1];
 
-always @(posedge clk) begin
-	case (signI)	
-		1'b0 :  module_dataI <=  s_chans_dataI;
-		1'b1 :  module_dataI <= -s_chans_dataI;
-	endcase
-		case (signQ)	
-		1'b0 :  module_dataQ <=  s_chans_dataQ;
-		1'b1 :  module_dataQ <= -s_chans_dataQ;
-	endcase
+always @* begin : async_proc
+    case (signI)
+        1'b0 : module_dataI <=  received_Isignal;
+        1'b1 : module_dataI <= -received_Isignal;
+    endcase
+        case (signQ)
+        1'b0 : module_dataQ <=  received_Qsignal;
+        1'b1 : module_dataQ <= -received_Qsignal;
+    endcase
+end
 
+always @(posedge clk) begin
 	if (s_chans_valid) begin
-		received_sum <= module_dataQ + module_dataI;
-	end
+       received_Isignal <= s_chans_dataI;
+       received_Qsignal <= s_chans_dataQ;
+    end
+
+
+    received_sum <= module_dataQ + module_dataI;
 
 
 end	
