@@ -19,23 +19,17 @@ module Test1
 );
 
 
-wire [W_IN_MODULE:0] 
-	connection;
+wire [W_IN_MODULE:0] connection;
 
-wire
-	valid_connection;
+wire valid_connection;
 
-reg   [0:0]
-    Valid_1,Valid_2;
+reg   [0:0]  Valid_1,Valid_2;
 
-reg   [W_IN-1:0]
-	received_Isignal,received_Qsignal;
+reg   [W_IN-1:0] received_Isignal,received_Qsignal;
 
-reg   [W_IN_MODULE-1:0]
-    first_Imult,first_Qmult;
+reg   [W_IN_MODULE-1:0] first_Imult,first_Qmult;
 
-reg [10-1:0]
-    out_chance = 1'b0000000001;
+reg [10-1:0] out_chance = 1'b0000000001;
 
 always @(posedge clk) begin
 
@@ -55,11 +49,8 @@ always @(posedge clk) begin
         .W_IN(W_IN_MODULE),
         .W_OUT(W_IN_MODULE+1)
     ) inst_Module_of_number (
-        .clk       (clk),
         .Input_a   (first_Imult),
         .Input_b   (first_Qmult),
-        .Valid     (Valid_2),
-        .Valid_out_module (valid_connection),
         .Output    (connection)
     );
 
@@ -70,8 +61,8 @@ always @(posedge clk) begin
 	) inst_EMA_Module (
 		.clk  (clk),
 		.Filter_Coefficient (Filter_Coefficient),
-		.Data (connection) ,
-		.Valid (valid_connection),
+		.Port_Data (connection) ,
+		.Valid (Valid_2),
 		.Valid_out_ema (Valid_Out),
 		.Filter_Out (Output)
 	);
