@@ -8,10 +8,10 @@ set target_part  "xczu5cg-sfvc784-2L-e"
 ## Defiene source files
 
 set src_files [list \
-  "${origin_dir}/src/EMA_Module.v" \
+  "${origin_dir}/src/Test1.v" \
+  "${origin_dir}/src/Module_of_number.v" \
+  "${origin_dir}/src/EMA_Module_30_06.v" \
 ]
-
-
 
 ## Create project
 create_project $project_name $project_path -part $target_part -force
