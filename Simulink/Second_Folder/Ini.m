@@ -40,12 +40,26 @@ RealSimpleAGC = real(SamplesY);
 ImagSimpleAGC = imag(SamplesY);
 %% Graphs
 figure(1)
-plot(out.clk_10(1,1:20000)),hold on, grid on
-plot(out.clk_2(1,1:20000)),plot(out.clk_4(1,1:20000)),plot(out.clk_40(1,1:20000)),
-legend('10clk','2clk','4clk','40clk','location','best')
-figure(2)
-pwelch(out.clk_10(1,1:20000),[],[],[],[],'centered'),hold on,
-pwelch(out.clk_2(1,1:20000),[],[],[],[],'centered'),
-pwelch(out.clk_4(1,1:20000),[],[],[],[],'centered'),
-pwelch(out.clk_40(1,1:20000),[],[],[],[],'centered'),
-legend('10clk','2clk','4clk','40clk','location','best')
+subplot(211)
+    plot(out.clk_10(1,1:20000)),hold on, grid on
+    plot(out.clk_2(1,1:20000)),
+    plot(out.clk_4(1,1:20000)),
+    plot(out.clk_40(1,1:20000)),
+    legend('10clk','2clk','4clk','40clk','location','best')
+subplot(212)
+    pwelch(out.clk_10(1,1:20000),[],[],[],[],'centered'),hold on,
+    pwelch(out.clk_2(1,1:20000),[],[],[],[],'centered'),
+    pwelch(out.clk_4(1,1:20000),[],[],[],[],'centered'),
+    pwelch(out.clk_40(1,1:20000),[],[],[],[],'centered'),
+    legend('10clk','2clk','4clk','40clk','location','best')
+%% To FPGA
+NameData    =   'Data.txt';
+[Int16]     =   ToInt16(SamplesY*2^14, NameData);
+NameFilter  =   'Filter.txt';
+[Int16]     =   ToInt16(alpha*2^13, NameFilter);
+NameError   =   'Error.txt';
+[Int16]     =   ToInt16(a*2^13,     NameError);
+%%
+fp = fopen('R.txt','wt');
+fprintf(fp, '%d', R*2^7);
+fclose(fp);
