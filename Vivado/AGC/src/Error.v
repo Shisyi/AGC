@@ -16,11 +16,13 @@ module Error
     output wire                   Valid_out_error,
     output wire [OUTWIDTH-1:0   ] Error_Out
 );
-reg signed [AWIDTH-1:0]   Data;
-reg signed [BWIDTH-1:0]   Coeff_1,Coeff_2;
-reg signed [DWIDTH-1:0]   Pread;
-reg signed [DWIDTH-1:0]   R_trig; 
-reg signed [OUTWIDTH-1:0] c,accum ;
+reg signed [AWIDTH-1:0]   Data = 0;
+reg signed [BWIDTH-1:0]   Coeff_2 = 0;
+reg signed [BWIDTH-1:0]   Coeff_1 = 0;
+reg signed [DWIDTH-1:0]   Pread = 0;
+reg signed [DWIDTH-1:0]   R_trig = 0; 
+reg signed [OUTWIDTH-1:0] accum = 0;
+reg signed [OUTWIDTH-1:0] c = 0;
 reg Valid_1,Valid_2;
 
 always @(posedge clk) begin
@@ -33,10 +35,13 @@ always @(posedge clk) begin
     Pread   <= R_trig  - Data;
 	Valid_2 <= Valid_1;
 	Coeff_2 <= Coeff_1;
+
 	if (Valid_2) begin
-		accum   <= Coeff_2 * Pread + c;
+		accum <= Coeff_2 * Pread + c;
 	end
-	c 		<= accum;
+
+	c <= accum;
+
 end
 
 assign Valid_out_error = Valid_2;

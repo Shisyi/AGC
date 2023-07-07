@@ -12,10 +12,11 @@ module Module_of_number
 
 );
 
-wire  sign_a, sign_b;    
+wire  sign_a ;
+wire  sign_b ;    
 
-reg   [W_IN-1:0] module_a, module_b;
- 
+reg   [W_IN-1:0] module_a = 0; 
+reg   [W_IN-1:0] module_b = 0;
 
 assign  sign_a = Input_a[W_IN-1];
 assign  sign_b = Input_b[W_IN-1];

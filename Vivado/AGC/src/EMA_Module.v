@@ -17,16 +17,18 @@ module EMA_Module
 );
 
 //reg signed [AWIDTH-1:0]   a;
-reg signed [DWIDTH-1:0]   Data;
-reg signed [BWIDTH-1:0]   Coeff_1,Coeff_2;
-reg signed [DWIDTH-1:0]   Pread; 
+reg signed [DWIDTH-1:0]   Data = 0;
+reg signed [BWIDTH-1:0]   Coeff_2 = 0;
+reg signed [BWIDTH-1:0]   Coeff_1 = 0;
+reg signed [DWIDTH-1:0]   Pread= 0; 
 //reg signed [MULT-1:0]     mult;
-reg signed [OUTWIDTH-1:0] c,accum ;
+reg signed [OUTWIDTH-1:0] accum = 0;
+reg signed [OUTWIDTH-1:0] c = 0;
 reg Valid_1,Valid_2,Valid_3;
 
 
-wire signed [DWIDTH+6:0] accum_shift;
-wire signed [DWIDTH-1:0] accum_raunding;
+wire signed [DWIDTH+6:0] accum_shift ;
+wire signed [DWIDTH-1:0] accum_raunding ;
 
 //INMODE <= "11101";
 assign accum_shift    = accum >> 14; // Сдвигаю вправо на 14 битов

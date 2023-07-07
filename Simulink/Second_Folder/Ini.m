@@ -36,8 +36,8 @@ FixedIm = fi(imag(SamplesY),1,16,14);
 FixedR  = fi(R,0,2,0);
 Fixeda  = fi(a,1,13,12);
 
-RealSimpleAGC = real(SamplesY); 
-ImagSimpleAGC = imag(SamplesY);
+RealSimpleAGC = double(int16(real(SamplesY)*2^14))/2^14; 
+ImagSimpleAGC = double(int16(imag(SamplesY)*2^14))/2^14;
 %% Graphs
 figure(1)
 subplot(211)
@@ -61,5 +61,18 @@ NameError   =   'Error.txt';
 [Int16]     =   ToInt16(a*2^13,     NameError);
 %%
 fp = fopen('R.txt','wt');
-fprintf(fp, '%d', R*2^7);
+fprintf(fp, '%d', R*2^6);
 fclose(fp);
+%%
+ReadData = readmatrix('DataVivado.txt');
+RealDataVivado = ReadData(1:2:end);
+ImagDataVivado = ReadData(2:2:end);
+figure(2)
+subplot(211)
+    plot(RealDataVivado(3:end)/2^18),hold on, grid on,
+    plot(out.clk_40(1,1:20000)),
+    legend('Vivado','Matlab','location','best')
+subplot(212)
+    pwelch(RealDataVivado/2^18,[],[],[],[],'centered'),hold on,
+    pwelch(out.clk_40(1,1:20000),[],[],[],[],'centered'),
+    legend('Vivado','Matlab','location','best')

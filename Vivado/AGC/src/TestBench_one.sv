@@ -70,11 +70,21 @@ module TestBench_one();
         end
     end
 
+
     task wait_clk(int num_clk);
         #(num_clk * CLK_PERIOD);
     endtask : wait_clk
 
     initial begin
+    	s_chans_dataI      <= '0;
+		s_chans_dataQ      <= '0;
+		s_chans_valid      <= '0;
+		Filter_Coefficient <= '0;
+		Error_Coefficient  <= '0;
+		R_level            <= '0;
+		wait_clk(10);
+
+
 		fp_r = $fopen(file_name_data, "r");
 		    if (!fp_r) begin
 		        $display("File not opened %s", file_name_data);
@@ -120,8 +130,8 @@ module TestBench_one();
 				R_level<= rdr_value;	
             $fclose(fp_R);
 
-        	$fmonitor(fp_w, "%d ",$signed(OutputI));
-        	$fmonitor(fp_w, "%d ",$signed(OutputQ));
+        	$fdisplay(fp_w, "%d ",$signed(OutputI));
+        	$fdisplay(fp_w, "%d ",$signed(OutputQ));
 
         	s_chans_valid <= 1;
         	wait_clk(1);

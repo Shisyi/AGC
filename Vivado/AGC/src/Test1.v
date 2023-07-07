@@ -25,31 +25,36 @@ module Test1
 );
 
 
-wire signed [W_IN_MODULE:0] connection; // Разрядность 27,18. Выход с ||
+wire signed [W_IN_MODULE:0] connection ; // Разрядность 27,18. Выход с ||
 
-wire signed [DSPWIDTH-1:0 ] Dsp1_Out;   // Выход с первого фильтра
-wire signed [DWIDTH+6:0   ] Dsp1_Shift; // Сдвинутая дата на 14 вправо
-wire signed [DWIDTH-1:0   ] Dsp1_Round; // Округлил убрав последние 7 бит
+wire signed [DSPWIDTH-1:0 ] Dsp1_Out ;   // Выход с первого фильтра
+wire signed [DWIDTH+6:0   ] Dsp1_Shift ; // Сдвинутая дата на 14 вправо
+wire signed [DWIDTH-1:0   ] Dsp1_Round ; // Округлил убрав последние 7 бит
 
-wire [DWIDTH-1:0   ] R_with_zeros;
-wire signed [DSPWIDTH-1:0 ] error_last;
+wire        [DWIDTH-1:0   ] R_with_zeros;
+wire signed [DSPWIDTH-1:0 ] error_last ;
 
-wire signed [DWIDTH+6:0   ] Dsp2_Shift; // Сдвинутая дата на 14 вправо
-wire signed [DWIDTH-1:0   ] Dsp2_Round; // Округлил убрав последние 7 бит
+wire signed [DWIDTH+6:0   ] Dsp2_Shift ; // Сдвинутая дата на 14 вправо
+wire signed [DWIDTH-1:0   ] Dsp2_Round ; // Округлил убрав последние 7 бит
 
 
 wire valid_connection,valid_error,valid_out_error;
 
 reg   [0:0]  Valid_1,Valid_2;
 
-reg  signed [W_IN-1:0] received_Isignal,received_Qsignal;
+reg  signed [W_IN-1:0] received_Qsignal = 0;
+reg  signed [W_IN-1:0] received_Isignal = 0;
 
-reg  signed [43-1:0         ] first_Imult,first_Qmult;
-wire signed [W_IN_MODULE-1:0] first_Imult_round,first_Qmult_round;
+reg  signed [43-1:0         ] first_Qmult = 0;
+reg  signed [43-1:0         ] first_Imult = 0;
 
-wire signed [W_IN-1:0] Satureted_real,Satureted_imag;
+wire signed [W_IN_MODULE-1:0] first_Qmult_round ;
+wire signed [W_IN_MODULE-1:0] first_Imult_round ;
 
-reg  signed [W_IN_MODULE-1:0] I_out_reg,Q_out_reg;
+wire signed [W_IN-1:0] Satureted_real,Satureted_imag ;
+
+reg  signed [W_IN_MODULE-1:0] Q_out_reg = 0;
+reg  signed [W_IN_MODULE-1:0] I_out_reg = 0;
 
     
     assign Valid_Out  = valid_out_error;
@@ -85,10 +90,10 @@ always @(posedge clk) begin
 assign Dsp1_Shift = Dsp1_Out >> 14; // Выход дсп (48,32) - Сдвинул на 14 право (34,18)
 assign Dsp1_Round = {Dsp1_Shift[DWIDTH+6],Dsp1_Shift[DWIDTH:0]}; // Убрал лишнюю разрядность целой части, с добавлением знакового разряда
 
-assign R_with_zeros = {7'b0000000,R_level,12'b000000000000};
+assign R_with_zeros = {R_level,12'b000000000000};
                 
-assign Dsp2_Shift = error_last >> 14; // Выход дсп (48,32) - Сдвинул на 14 право (34,18)
-assign Dsp2_Round = {Dsp2_Shift[DWIDTH+6],Dsp2_Shift[DWIDTH:0]};
+assign Dsp2_Shift = error_last[DSPWIDTH-1:14]; // Выход дсп (48,32) - Сдвинул на 14 право (34,18)
+assign Dsp2_Round = Dsp2_Shift[DWIDTH-1:0   ];
 
 assign first_Imult_round = first_Imult >> 17;
 assign first_Qmult_round = first_Qmult >> 17;
