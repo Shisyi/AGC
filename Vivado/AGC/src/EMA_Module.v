@@ -17,9 +17,9 @@ module EMA_Module
 );
 
 //reg signed [AWIDTH-1:0]   a;
-reg signed [DWIDTH-1:0]   Data = 0;
-reg signed [BWIDTH-1:0]   Coeff_2 = 0;
-reg signed [BWIDTH-1:0]   Coeff_1 = 0;
+reg        [DWIDTH-1:0]   Data = 0;
+reg        [BWIDTH-1:0]   Coeff_2 = 0;
+reg        [BWIDTH-1:0]   Coeff_1 = 0;
 reg signed [DWIDTH-1:0]   Pread= 0; 
 //reg signed [MULT-1:0]     mult;
 reg signed [OUTWIDTH-1:0] accum = 0;
@@ -31,8 +31,8 @@ wire signed [DWIDTH+6:0] accum_shift ;
 wire signed [DWIDTH-1:0] accum_raunding ;
 
 //INMODE <= "11101";
-assign accum_shift    = accum >> 14; // Сдвигаю вправо на 14 битов
-assign accum_raunding = {accum_shift[DWIDTH+6],accum_shift[DWIDTH:0]}; // Выкидываю биты целой части, для одинаковой разрядности (1,27,18)
+assign accum_shift    = accum[OUTWIDTH-1:14   ]; // Сдвигаю вправо на 14 битов
+assign accum_raunding = accum_shift[DWIDTH-1:0]; // Выкидываю биты целой части, для одинаковой разрядности (1,27,18)
 
 always @(posedge clk) begin
 //    a1 <= accum;
@@ -42,11 +42,11 @@ always @(posedge clk) begin
     end
     Coeff_1 <= Filter_Coefficient;
     Valid_2 <= Valid_1;
-    Pread   <= Data  - accum_raunding; // Преэддер: Data(1,27,18) и accum(1,48,32), =>  32 до 18 сдвигом вправо на 14, (1,34,18), и убираем 7 бита из целой части.
+    Pread   <= $signed({1'b0,Data})  - accum_raunding; // Преэддер: Data(1,27,18) и accum(1,48,32), =>  32 до 18 сдвигом вправо на 14, (1,34,18), и убираем 7 бита из целой части.
     Coeff_2 <= Coeff_1;
 //    mult     = Coeff * Pread;
     if (Valid_2) begin
-        accum   <= Coeff_2 * Pread + c;
+        accum   <= $signed({{5{1'b0}},Coeff_2}) * Pread + c;
         Valid_3 <= Valid_2;
     end
 
