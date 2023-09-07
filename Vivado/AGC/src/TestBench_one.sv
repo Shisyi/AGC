@@ -14,7 +14,7 @@ module TestBench_one();
 	parameter       W_OUT = 16;
 
     localparam CLK_PERIOD = 10ns;
-    localparam files_dir         =  "D:/Matlab/Folder's/FAR/AfterGit/AGC/Simulink/Second_Folder/";
+    localparam files_dir         =  "C:/My_Program/Matlab/Folder's/AGC/Simulink/Second_Folder/";
 
     localparam file_name_data    =  {files_dir, "Data.txt"};
 

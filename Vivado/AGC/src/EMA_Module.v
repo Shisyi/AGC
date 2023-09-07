@@ -2,7 +2,7 @@
 //(* use_dsp = "yes" *)
 module EMA_Module
 #(   
-    parameter BWIDTH = 18,
+    parameter BWIDTH = 13,
 //    parameter AWIDTH = 30,
     parameter DWIDTH = 27,
 //    parameter MULT = 45,

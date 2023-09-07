@@ -97,7 +97,7 @@ assign EMA_Out_Round = EMA_Out_Shift[DWIDTH-1:0]; // Убрал лишнюю р�
 
 assign R_with_zeros = {R_level,{RZEROS{1'b0}}};
                 
-assign Error_Out_Shift = Error_Out[DSPWIDTH-1:11]; // Выход дсп (48,32) - Сдвинул на 11 право (37,21)
+assign Error_Out_Shift = Error_Out[DSPWIDTH-1:10]; // Выход дсп (48,32) - Сдвинул на 11 право (37,21)
 assign Error_Out_Round = Error_Out_Shift[DWIDTH-1:0]; // Убрал лишнюю разрядность целой части
 
 

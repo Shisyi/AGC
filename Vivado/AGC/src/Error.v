@@ -2,9 +2,9 @@
 
 module Error
 #(   
-    parameter BWIDTH = 18,
-    parameter AWIDTH = 30,
-    parameter DWIDTH = 27,
+    parameter BWIDTH = 13,
+    parameter AWIDTH = 27,
+    parameter DWIDTH = 8,
 //    parameter MULT = 45,
     parameter OUTWIDTH = 48  //parameter
 ) (
